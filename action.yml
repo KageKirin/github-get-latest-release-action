@@ -5,7 +5,7 @@ branding:
     color: 'blue'
 inputs:
   token:
-    description: 'The Github auth token. Usually ${{ github.token}}'
+    description: 'The Github auth token. Usually secrets.GITHUB_TOKEN or github.token'
     required: true
   owner:
     description: 'The Github user or organization that owns the repository'
