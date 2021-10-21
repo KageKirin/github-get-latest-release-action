@@ -1,0 +1,43 @@
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test current repo
+        uses: ./ # Uses an action in the root directory
+        id: testcurrent
+      - name: Print current repo
+        run: echo ${{ steps.testcurrent.outputs.release }}
+
+      - name: Test given repo
+        uses: ./ # Uses an action in the root directory
+        id: testgiven
+        with:
+          repository: kagekirin/github-get-latest-release-action
+      - name: Print given repo
+        run: echo ${{ steps.testgiven.outputs.release }}
+
+      - name: Test owner repo
+        uses: ./ # Uses an action in the root directory
+        id: testowner
+        with:
+          owner: kagekirin
+          repo: github-get-latest-release-action
+          excludes: prerelease, draft
+      - name: Print owner repo
+        run: echo ${{ steps.testowner.outputs.release }}
+
+      - name: Test other repo
+        uses: ./ # Uses an action in the root directory
+        id: testother
+        with:
+          repository: kagekirin/metagen-rs
+      - name: Print other repo
+        run: echo ${{ steps.testother.outputs.release }}
