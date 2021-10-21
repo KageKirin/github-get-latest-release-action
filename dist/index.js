@@ -8443,17 +8443,19 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const core = __nccwpck_require__(2619);
-const {github, context} = __nccwpck_require__(4637);
-
-
-const token = core.getInput('token');
-const octokit = github.getOctokit(token)
-const repository = core.getInput('repository');
-var owner = core.getInput('owner');
-var repo = core.getInput('repo');
-var excludes = core.getInput('excludes').trim().split(",");
+const github = __nccwpck_require__(4637);
 
 async function run() {
+    const token = core.getInput('token');
+    const repository = core.getInput('repository');
+
+    const octokit = github.getOctokit(token)
+    const context = github.context;
+
+    var owner = core.getInput('owner');
+    var repo = core.getInput('repo');
+    var excludes = core.getInput('excludes').trim().split(",");
+
     try {
         if (repository) {
             [owner, repo] = repository.split("/");
