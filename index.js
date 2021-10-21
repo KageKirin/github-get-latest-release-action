@@ -1,6 +1,8 @@
 const core = require('@actions/core');
-const { Octokit } = require("@octokit/rest");
+const github = require('@actions/github');
 
+const token = core.getInput('token');
+const octokit = github.getOctokit(token)
 const repository = core.getInput('repository');
 var owner = core.getInput('owner');
 var repo = core.getInput('repo');
