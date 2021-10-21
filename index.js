@@ -47,6 +47,7 @@ async function run() {
         if (releases.length) {
             core.setOutput('release', releases[0]);
             core.setOutput('releaseAssets', releases[0].assets);
+            console.log(releases[0].assets);
         }
         else {
             core.setFailed("No valid releases");
