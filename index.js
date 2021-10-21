@@ -1,5 +1,6 @@
 const core = require('@actions/core');
-const github = require('@actions/github');
+const {github, context} = require('@actions/github');
+
 
 const token = core.getInput('token');
 const octokit = github.getOctokit(token)
@@ -12,8 +13,11 @@ const octokit = new Octokit()
 
 async function run() {
     try {
-        if (repository){
-                [owner, repo] = repository.split("/");
+        if (repository) {
+            [owner, repo] = repository.split("/");
+        }
+        else if (!owner && !repo) {
+            [owner, repo] = context.repo;
         }
         var releases  = await octokit.repos.listReleases({
             owner: owner,
