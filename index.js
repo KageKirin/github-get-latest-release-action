@@ -30,10 +30,10 @@ async function run() {
         console.log('repo: %s', repo);
 
         console.log('at REST query');
-        var releases  = await octokit.rest.repos.listReleases({
+        var releases = await octokit.rest.repos.listReleases({
             owner: owner,
             repo: repo,
-            });
+        });
         releases = releases.data;
 
         if (excludes.includes('prerelease')) {
@@ -45,7 +45,16 @@ async function run() {
         }
 
         if (releases.length) {
-            core.setOutput('release', releases[0])
+            core.setOutput('release', releases[0]);
+
+            var releaseAssets = await octokit.rest.repos.listReleaseAssets({
+                release_id: releases[0].id,
+                owner: owner,
+                repo: repo,
+            });
+            releaseAssets = releaseAssets.data;
+
+            core.setOutput('releaseAssets', releaseAssets);
         }
         else {
             core.setFailed("No valid releases");
