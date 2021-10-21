@@ -13,6 +13,8 @@ jobs:
       - name: Test current repo
         uses: ./ # Uses an action in the root directory
         id: testcurrent
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Print current repo
         run: echo ${{ steps.testcurrent.outputs.release }}
 
@@ -20,6 +22,7 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: testgiven
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           repository: kagekirin/github-get-latest-release-action
       - name: Print given repo
         run: echo ${{ steps.testgiven.outputs.release }}
@@ -28,6 +31,7 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: testowner
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           owner: kagekirin
           repo: github-get-latest-release-action
           excludes: prerelease, draft
@@ -38,6 +42,7 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: testother
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           repository: kagekirin/metagen-rs
       - name: Print other repo
         run: echo ${{ steps.testother.outputs.release }}
