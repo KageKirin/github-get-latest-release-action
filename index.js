@@ -9,8 +9,6 @@ var owner = core.getInput('owner');
 var repo = core.getInput('repo');
 var excludes = core.getInput('excludes').trim().split(",");
 
-const octokit = new Octokit()
-
 async function run() {
     try {
         if (repository) {
