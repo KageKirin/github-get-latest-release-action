@@ -16,7 +16,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Print current repo
-        run: echo ${{ steps.testcurrent.outputs.release }}
+        run: |
+          echo release: ${{ steps.testcurrent.outputs.release }}
+          echo ""
+          echo releaseAssets: ${{ steps.testcurrent.outputs.releaseAssets }}
 
       - name: Test given repo
         uses: ./ # Uses an action in the root directory
@@ -25,7 +28,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           repository: kagekirin/github-get-latest-release-action
       - name: Print given repo
-        run: echo ${{ steps.testgiven.outputs.release }}
+        run: |
+          echo release: ${{ steps.testgiven.outputs.release }}
+          echo ""
+          echo releaseAssets: ${{ steps.testgiven.outputs.releaseAssets }}
 
       - name: Test owner repo
         uses: ./ # Uses an action in the root directory
@@ -36,7 +42,10 @@ jobs:
           repo: github-get-latest-release-action
           excludes: draft
       - name: Print owner repo
-        run: echo ${{ steps.testowner.outputs.release }}
+        run: |
+          echo release: ${{ steps.testowner.outputs.release }}
+          echo ""
+          echo releaseAssets: ${{ steps.testowner.outputs.releaseAssets }}
 
       - name: Test other repo
         uses: ./ # Uses an action in the root directory
@@ -45,4 +54,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           repository: kagekirin/metagen-rs
       - name: Print other repo
-        run: echo ${{ steps.testother.outputs.release }}
+        run: |
+          echo release: ${{ steps.testother.outputs.release }}
+          echo ""
+          echo releaseAssets: ${{ steps.testother.outputs.releaseAssets }}
