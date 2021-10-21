@@ -1,15 +1,18 @@
 const core = require('@actions/core');
-const {github, context} = require('@actions/github');
+const github = require('@actions/github');
 
-
-const token = core.getInput('token');
-const octokit = github.getOctokit(token)
-const repository = core.getInput('repository');
-var owner = core.getInput('owner');
-var repo = core.getInput('repo');
-var excludes = core.getInput('excludes').trim().split(",");
 
 async function run() {
+    const token = core.getInput('token');
+    const repository = core.getInput('repository');
+
+    const octokit = github.getOctokit(token)
+    const context = github.context;
+
+    var owner = core.getInput('owner');
+    var repo = core.getInput('repo');
+    var excludes = core.getInput('excludes').trim().split(",");
+
     try {
         if (repository) {
             [owner, repo] = repository.split("/");
