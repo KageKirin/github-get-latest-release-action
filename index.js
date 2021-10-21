@@ -46,15 +46,7 @@ async function run() {
 
         if (releases.length) {
             core.setOutput('release', releases[0]);
-
-            var releaseAssets = await octokit.rest.repos.listReleaseAssets({
-                release_id: releases[0].id,
-                owner: owner,
-                repo: repo,
-            });
-            releaseAssets = releaseAssets.data;
-
-            core.setOutput('releaseAssets', releaseAssets);
+            core.setOutput('releaseAssets', releases[0].assets);
         }
         else {
             core.setFailed("No valid releases");
