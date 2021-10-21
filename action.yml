@@ -1,0 +1,24 @@
+name: 'GitHub Get latest release'
+description: 'Get the latest release information from a given repo'
+branding:
+    icon: 'anchor'
+    color: 'blue'
+inputs:
+  owner:
+    description: 'The Github user or organization that owns the repository'
+    required: false
+  repo:
+    description: 'The repository name'
+    required: false
+  repository:
+    description: 'The repository name in full'
+    required: false
+  excludes:
+    description: 'Types of releases to exclude (e.g. pre-release)'
+    required: false
+outputs:
+  release:
+    description: 'Latest release'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
