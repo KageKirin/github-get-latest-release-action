@@ -45,7 +45,7 @@ async function run() {
         }
 
         if (releases.length) {
-            core.setOutput('release', releases[0].tag_name)
+            core.setOutput('release', releases[0])
         }
         else {
             core.setFailed("No valid releases");
