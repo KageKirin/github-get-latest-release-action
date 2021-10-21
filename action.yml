@@ -24,4 +24,4 @@ outputs:
     description: 'Latest release'
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'index.js'
