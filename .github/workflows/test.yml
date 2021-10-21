@@ -58,4 +58,5 @@ jobs:
           echo release: ${{ steps.testother.outputs.release }}
           echo ""
           echo releaseAssets: ${{ steps.testother.outputs.releaseAssets }}
-          echo releaseAssets: ${{ steps.testother.outputs.releaseAssets[0].browser_download_url }}
+          echo browser_download_url: ${{ steps.testother.outputs.releaseAssets.browser_download_url }}
+          echo [0].browser_download_url: ${{ steps.testother.outputs.releaseAssets[0].browser_download_url }}
