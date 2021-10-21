@@ -1,14 +1,16 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
+const context = github.context;
+const token = core.getInput('token');
+const repository = core.getInput('repository');
 
+
+/// run
 async function run() {
-    const token = core.getInput('token');
-    const repository = core.getInput('repository');
+    console.log('entered run');
 
     const octokit = github.getOctokit(token)
-    const context = github.context;
-
     var owner = core.getInput('owner');
     var repo = core.getInput('repo');
     var excludes = core.getInput('excludes').trim().split(",");
@@ -17,23 +19,35 @@ async function run() {
         if (repository) {
             [owner, repo] = repository.split("/");
         }
-        else if (!owner && !repo) {
-            [owner, repo] = context.repo;
+        if (!owner) {
+            owner = context.repo.owner;
         }
-        var releases  = await octokit.repos.listReleases({
+        if (!repo) {
+            repo = context.repo.repo;
+        }
+
+        console.log('owner: %s', owner);
+        console.log('repo: %s', repo);
+
+        console.log('at REST query');
+        var releases  = await octokit.rest.repos.listReleases({
             owner: owner,
             repo: repo,
             });
         releases = releases.data;
+
         if (excludes.includes('prerelease')) {
             releases = releases.filter(x => x.prerelease != true);
         }
+
         if (excludes.includes('draft')) {
             releases = releases.filter(x => x.draft != true);
         }
+
         if (releases.length) {
             core.setOutput('release', releases[0].tag_name)
-        } else {
+        }
+        else {
             core.setFailed("No valid releases");
         }
     }
