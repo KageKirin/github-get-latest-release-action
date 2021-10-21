@@ -34,7 +34,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           owner: kagekirin
           repo: github-get-latest-release-action
-          excludes: prerelease, draft
+          excludes: draft
       - name: Print owner repo
         run: echo ${{ steps.testowner.outputs.release }}
 
