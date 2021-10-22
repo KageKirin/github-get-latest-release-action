@@ -60,3 +60,17 @@ jobs:
           echo releaseAssets: ${{ steps.testother.outputs.releaseAssets }}
           echo browser_download_url: ${{ steps.testother.outputs.releaseAssets.browser_download_url }}
           echo [0].browser_download_url: ${{ steps.testother.outputs.releaseAssets[0].browser_download_url }}
+
+      - name: Test other repo with multiple release assets
+        uses: ./ # Uses an action in the root directory
+        id: testmulti
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: kagekirin/metagen-cs
+      - name: Print other repo with multiple release assets
+        run: |
+          echo release: ${{ steps.testmulti.outputs.release }}
+          echo ""
+          echo releaseAssets: ${{ steps.testmulti.outputs.releaseAssets }}
+          echo browser_download_url: ${{ steps.testmulti.outputs.releaseAssets.browser_download_url }}
+          echo [0].browser_download_url: ${{ steps.testmulti.outputs.releaseAssets[0].browser_download_url }}
